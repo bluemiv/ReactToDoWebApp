@@ -1,0 +1,40 @@
+@import '../../utils'; // import for open-color
+
+.add-input-group {
+	border-top: 1px solid $oc-gray-2;
+	border-bottom: 1px solid $oc-gray-2;
+	padding: 1rem;
+	display: flex;
+
+	.add-input {
+		flex: 1;
+		font-size: 1.1rem;
+		border: none;
+		outline: none;
+		border-bottom: 1px solid $oc-gray-4;
+		&:focus {
+			border-bottom: 1px solid $oc-violet-4;
+		}
+	}
+
+	.add-button {
+		width: 5rem;
+		font-size: 1.1rem;
+		margin-left: 1rem;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid $oc-green-7;
+		color: $oc-green-7;
+		outline: none;
+		background-color: white;
+		cursor: pointer;
+		transition: 0.2s;
+		&:hover {
+			background-color: $oc-green-7;
+			color: white;
+		}
+		&:active {
+			background-color: $oc-green-8;
+		}
+	}
+}
