@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
-import PageTemplate from './components/PageTemplate';
-import TodoInput from './components/TodoInput';
+import PageTemplate from './PageTemplate';
+import TodoInput from './TodoInput';
 
 const App = () => {
 	return (
