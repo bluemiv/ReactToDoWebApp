@@ -1,5 +1,17 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## 사용한 라이브러리
+
+scss / sass
+```
+$ yarn add node-sass
+```
+
+open-color
+```
+$ yarn add open-color
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
