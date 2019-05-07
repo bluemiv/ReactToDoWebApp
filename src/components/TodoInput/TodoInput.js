@@ -20,6 +20,7 @@ const TodoInput = ({ value, onChange, onInsert }) => {
 		<div className="add-input-group">
 			<input
 				type="text"
+				value={value}
 				className="add-input"
 				onChange={onChange}
 				onKeyPress={handlerKeyPress}
