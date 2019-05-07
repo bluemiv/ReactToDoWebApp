@@ -7,7 +7,7 @@ import TodoList from './TodoList';
 class App extends Component {
 	state = {
 		input: '',
-		todos: [ { id: 0, text: '테스트', done: true }, { id: 1, text: '테스트2', done: false } ]
+		todos: []
 	};
 
 	id = 1;
