@@ -1,3 +1,4 @@
 import TodoItem from './TodoItem';
+import TodoAddForm from './TodoAddForm.tsx';
 
-export { TodoItem };
+export { TodoItem, TodoAddForm };
