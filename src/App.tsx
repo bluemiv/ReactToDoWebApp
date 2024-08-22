@@ -1,11 +1,19 @@
-import { Title } from '@/components';
+import { Card, Copyright } from '@/components';
+import { TodoItem } from '@/features/todo';
 
 export default function App() {
   return (
-    <div className="w-screen h-screen bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center">
-      <div className="max-w-[640px] w-full max-h-[70vh] h-full min-h-[300px] bg-white rounded mx-auto p-10">
-        <Title>To Do List</Title>
-      </div>
-    </div>
+    <main className="w-screen h-screen bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center min-w-[320px]">
+      <Card
+        className="m-auto w-[95vw] h-[80vh] md:w-[720px]"
+        title="To Do List"
+        footer={<Copyright />}
+      >
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+        <TodoItem />
+      </Card>
+    </main>
   );
 }

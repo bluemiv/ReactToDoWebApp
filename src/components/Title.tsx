@@ -1,5 +1,6 @@
-import { TPropsWithChildren } from '../types';
+import classNames from 'classnames';
+import { TPropsWithComponent } from '@/types';
 
-export default function Title({ children }: TPropsWithChildren) {
-  return <h1>{children}</h1>;
+export default function Title({ children, className }: TPropsWithComponent) {
+  return <h1 className={classNames('font-bold text-xl', className)}>{children}</h1>;
 }
