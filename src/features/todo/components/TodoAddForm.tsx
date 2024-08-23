@@ -49,7 +49,7 @@ export default function TodoAddForm() {
             'rounded-full w-[120px] h-[60px] text-white transition duration-100 ease-in-out',
             isSubmit
               ? 'cursor-not-allowed bg-gray-400'
-              : 'cursor-pointer bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700',
+              : 'cursor-pointer bg-indigo-500 hover:bg-indigo-500 active:bg-indigo-600',
           )}
           disabled={isSubmit}
         >

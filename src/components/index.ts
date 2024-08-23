@@ -1,5 +1,4 @@
-import Title from './Title';
-import Card from './Card';
 import Copyright from './Copyright';
+import Icons from './Icons';
 
-export { Title, Card, Copyright };
+export { Copyright, Icons };
