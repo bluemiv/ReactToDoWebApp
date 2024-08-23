@@ -1,8 +1,10 @@
-import { useState } from 'react';
 import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import dayjs from 'dayjs';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { TodoState, TTodo, useTodoDateStore, useTodoStore } from '@/features/todo';
+import { DATE_FORMAT } from '@/constants';
 
 type TFormParams = {
   todo: string;
@@ -15,21 +17,37 @@ const schema = yup
   .required();
 
 export default function TodoAddForm() {
-  const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const { curDate } = useTodoDateStore();
+  const { todoInfo, setTodoInfo } = useTodoStore();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<TFormParams>({ resolver: yupResolver(schema) });
 
   const onSubmit = async (formParams: TFormParams) => {
-    if (isSubmit) return;
-    setIsSubmit(true);
-    // TODO 항목 저장
-    console.log(formParams);
+    const todo = formParams.todo.trim();
+    const todoItem: TTodo = {
+      todo,
+      id: dayjs().unix(),
+      state: TodoState.normal,
+      created: dayjs().format(DATE_FORMAT.FULL_DATE),
+      updated: dayjs().format(DATE_FORMAT.FULL_DATE),
+    };
 
-    setIsSubmit(false);
+    const targetDate = curDate.format(DATE_FORMAT.DATE);
+    const nextTodoInfo = {
+      ...todoInfo,
+    };
+    if (!nextTodoInfo?.[targetDate]) {
+      nextTodoInfo[targetDate] = [todoItem];
+    } else {
+      nextTodoInfo[targetDate] = [...nextTodoInfo[targetDate], todoItem];
+    }
+    setTodoInfo(nextTodoInfo);
+    reset();
   };
 
   return (
@@ -42,16 +60,12 @@ export default function TodoAddForm() {
           {...register('todo', { required: true })}
           placeholder="New Todo"
           className="py-2 px-6 flex-1 bg-transparent outline-none"
-          disabled={isSubmit}
         />
         <button
           className={classNames(
             'rounded-full w-[120px] h-[60px] text-white transition duration-100 ease-in-out',
-            isSubmit
-              ? 'cursor-not-allowed bg-gray-400'
-              : 'cursor-pointer bg-indigo-500 hover:bg-indigo-500 active:bg-indigo-600',
+            'cursor-pointer bg-indigo-500 hover:bg-indigo-500 active:bg-indigo-600',
           )}
-          disabled={isSubmit}
         >
           ADD
         </button>

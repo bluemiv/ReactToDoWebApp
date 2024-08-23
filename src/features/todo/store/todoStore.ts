@@ -1,18 +1,18 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { TTodo } from '@/features/todo';
+import { TTodoInfo } from '@/features/todo';
 
 interface TTodoState {
-  todoList: TTodo[];
-  setTodoList: (todoList: TTodo[]) => void;
+  todoInfo: TTodoInfo;
+  setTodoInfo: (todoInfo: TTodoInfo) => void;
 }
 
 export const useTodoStore = create<TTodoState>()(
   devtools(
     persist(
       (set) => ({
-        todoList: [],
-        setTodoList: (todoList) => set(() => ({ todoList })),
+        todoInfo: {},
+        setTodoInfo: (todoInfo) => set(() => ({ todoInfo })),
       }),
       { name: 'todoStore' },
     ),
