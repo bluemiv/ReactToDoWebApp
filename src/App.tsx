@@ -1,5 +1,5 @@
 import { Copyright } from '@/components';
-import { TodoAddForm, TodoCard, TodoCardHeader, TodoItem } from '@/features/todo';
+import { TodoAddForm, TodoCard, TodoCardHeader, TodoList } from '@/features/todo';
 
 export default function App() {
   return (
@@ -7,10 +7,7 @@ export default function App() {
       <TodoCard header={<TodoCardHeader />} footer={<Copyright />}>
         <div className="flex flex-col gap-6">
           <TodoAddForm />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
+          <TodoList />
         </div>
       </TodoCard>
     </main>
