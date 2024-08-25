@@ -31,7 +31,7 @@ export default function TodoAddForm() {
     const todo = formParams.todo.trim();
     const todoItem: TTodo = {
       todo,
-      id: dayjs().unix(),
+      id: dayjs().valueOf(),
       state: TodoState.normal,
       created: dayjs().format(DATE_FORMAT.FULL_DATE),
       updated: dayjs().format(DATE_FORMAT.FULL_DATE),
@@ -58,7 +58,7 @@ export default function TodoAddForm() {
       >
         <input
           {...register('todo', { required: true })}
-          placeholder="New Todo"
+          placeholder="내용을 입력해주세요"
           className="py-2 px-6 flex-1 bg-transparent outline-none"
         />
         <button
