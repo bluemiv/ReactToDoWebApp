@@ -10,8 +10,10 @@ export default function TodoCard({ children }: TPropsWithChildren<TProps>) {
   return (
     <div className="shadow-2xl rounded-3xl bg-white m-auto w-[95vw] md:w-[720px] flex flex-col">
       <TodoCardHeader />
-      <div className="p-6 max-h-[60vh] min-h-[60vh] flex flex-col gap-6">{children}</div>
-      <div className="p-6 border-t flex justify-between items-center h-[80px]">
+      <div className="p-4 sm:p-6 max-h-[60vh] min-h-[60vh] flex flex-col gap-4 sm:gap-6">
+        {children}
+      </div>
+      <div className="p-4 sm:p-6 border-t flex justify-between items-center h-[80px]">
         <div className="text-indigo-500 text-sm">{`${count} Task${count > 1 ? 's' : ''}`}</div>
         <Copyright />
       </div>
