@@ -38,7 +38,7 @@ export default function TodoItem({ todo }: TProps) {
   const diabledEditButton = isEditMode && !nextTodo;
   const isCompleted = todo.state === TodoState.completed;
   return (
-    <div className="flex items-center gap-4 h-[60px]">
+    <div className="flex items-center gap-2 sm:gap-4 h-[60px]">
       <TodoCheckBox
         onClick={() => completeTodo({ id: todo.id, isCompleted: !isCompleted })}
         isCompleted={isCompleted}
@@ -46,7 +46,7 @@ export default function TodoItem({ todo }: TProps) {
       <div className="flex-1">
         {isEditMode ? (
           <input
-            className="w-full outline-none px-6 py-2 rounded-full bg-gray-100"
+            className="w-full outline-none px-4 sm:px-6 py-2 rounded-full bg-gray-100"
             value={nextTodo}
             onChange={(e) => setNextTodo(e.target.value.trim())}
             placeholder="내용을 입력해주세요"
@@ -55,7 +55,7 @@ export default function TodoItem({ todo }: TProps) {
           <div className={isCompleted ? 'line-through text-gray-500 italic' : ''}>{todo.todo}</div>
         )}
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 sm:gap-2">
         {isEditMode ? (
           <IconButton
             icon={<Icons.Send />}
@@ -67,7 +67,7 @@ export default function TodoItem({ todo }: TProps) {
         )}
         <IconButton icon={<Icons.Trash />} onClick={onClickRemoveButton} />
       </div>
-      <div className="text-xs text-gray-500 text-right flex flex-col gap-1">
+      <div className="text-xs text-gray-500 text-right flex flex-col gap-1 w-[80px] sm:w-auto">
         <div>Updated At</div>
         <div>{todo.updated}</div>
       </div>
