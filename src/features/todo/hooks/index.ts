@@ -10,32 +10,74 @@ export const useTodayTodoList = () => {
   return todoInfo?.[curDateKey] ?? [];
 };
 
+/**
+ * to do 항목을 생성하는 hook
+ */
 export const useCompleteTodo = () => {
   const { curDate } = useTodoDateStore();
   const { todoInfo, setTodoInfo } = useTodoStore();
   return ({ id, isCompleted }: { id: number; isCompleted: boolean }) => {
-    const nextTodoInfo = { ...todoInfo };
-    const foundTodo = nextTodoInfo[curDate.format(DATE_FORMAT.DATE)]?.find(
-      (todo) => id === todo.id,
-    );
-    if (!foundTodo) return;
-    foundTodo.state = isCompleted ? TodoState.completed : TodoState.normal;
-    foundTodo.updated = dayjs().format(DATE_FORMAT.FULL_DATE);
-    setTodoInfo(nextTodoInfo);
+    const todoInfoKey = curDate.format(DATE_FORMAT.DATE);
+    const todoList = todoInfo[todoInfoKey];
+    const foundIdx = todoList?.findIndex((todo) => id === todo.id);
+    if (foundIdx === -1) return;
+
+    const foundTodo = {
+      ...todoList[foundIdx],
+      state: isCompleted ? TodoState.completed : TodoState.normal,
+      updated: dayjs().format(DATE_FORMAT.FULL_DATE),
+    };
+    const nextTodoList = [
+      ...todoList.slice(0, foundIdx),
+      foundTodo,
+      ...todoList.slice(foundIdx + 1, todoList.length),
+    ];
+    setTodoInfo({ ...todoInfo, [todoInfoKey]: nextTodoList });
   };
 };
 
+/**
+ * to do 항목을 수정하는 hook
+ */
 export const useModifyTodo = () => {
   const { curDate } = useTodoDateStore();
   const { todoInfo, setTodoInfo } = useTodoStore();
   return ({ id, todo }: { id: number; todo: string }) => {
-    const nextTodoInfo = { ...todoInfo };
-    const foundTodo = nextTodoInfo[curDate.format(DATE_FORMAT.DATE)]?.find(
-      (todo) => id === todo.id,
-    );
-    if (!foundTodo) return;
-    foundTodo.todo = todo;
-    foundTodo.updated = dayjs().format(DATE_FORMAT.FULL_DATE);
-    setTodoInfo(nextTodoInfo);
+    const todoInfoKey = curDate.format(DATE_FORMAT.DATE);
+    const todoList = todoInfo[todoInfoKey];
+    const foundIdx = todoList?.findIndex((todo) => id === todo.id);
+    if (foundIdx === -1) return;
+
+    const foundTodo = {
+      ...todoList[foundIdx],
+      todo,
+      updated: dayjs().format(DATE_FORMAT.FULL_DATE),
+    };
+    const nextTodoList = [
+      ...todoList.slice(0, foundIdx),
+      foundTodo,
+      ...todoList.slice(foundIdx + 1, todoList.length),
+    ];
+    setTodoInfo({ ...todoInfo, [todoInfoKey]: nextTodoList });
+  };
+};
+
+/**
+ * to do 항목을 삭제하는 hook
+ */
+export const useRemoveTodo = () => {
+  const { curDate } = useTodoDateStore();
+  const { todoInfo, setTodoInfo } = useTodoStore();
+  return ({ id }: { id: number }) => {
+    const todoInfoKey = curDate.format(DATE_FORMAT.DATE);
+    const todoList = todoInfo[todoInfoKey];
+    const foundIdx = todoList?.findIndex((todo) => id === todo.id);
+    if (foundIdx === -1) return;
+
+    const nextTodoList = [
+      ...todoList.slice(0, foundIdx),
+      ...todoList.slice(foundIdx + 1, todoList.length),
+    ];
+    setTodoInfo({ ...todoInfo, [todoInfoKey]: nextTodoList });
   };
 };

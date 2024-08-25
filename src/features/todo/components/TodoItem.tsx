@@ -1,7 +1,13 @@
 import { useState } from 'react';
-import classNames from 'classnames';
-import { TodoCheckBox, TodoState, TTodo, useCompleteTodo, useModifyTodo } from '@/features/todo';
-import { Icons } from '@/components';
+import {
+  TodoCheckBox,
+  TodoState,
+  TTodo,
+  useCompleteTodo,
+  useModifyTodo,
+  useRemoveTodo,
+} from '@/features/todo';
+import { IconButton, Icons } from '@/components';
 
 interface TProps {
   todo: TTodo;
@@ -9,14 +15,27 @@ interface TProps {
 
 export default function TodoItem({ todo }: TProps) {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const [input, setInput] = useState<string>(todo.todo);
+  const [nextTodo, setNextTodo] = useState<string>(todo.todo);
 
   const completeTodo = useCompleteTodo();
   const modifyTodo = useModifyTodo();
+  const removeTodo = useRemoveTodo();
 
-  const toggleEditMode = () => setIsEditMode(!isEditMode);
+  const onClickEditButton = () => {
+    setIsEditMode(true);
+  };
 
-  const diabledEditButton = isEditMode && !input;
+  const onClickModifyButton = () => {
+    setIsEditMode(false);
+    if (!nextTodo || nextTodo === todo.todo) return;
+    modifyTodo({ id: todo.id, todo: nextTodo });
+  };
+
+  const onClickRemoveButton = () => {
+    removeTodo({ id: todo.id });
+  };
+
+  const diabledEditButton = isEditMode && !nextTodo;
   const isCompleted = todo.state === TodoState.completed;
   return (
     <div className="flex items-center gap-4 h-[60px]">
@@ -28,35 +47,25 @@ export default function TodoItem({ todo }: TProps) {
         {isEditMode ? (
           <input
             className="w-full outline-none px-6 py-2 rounded-full bg-gray-100"
-            value={input}
-            onChange={(e) => {
-              const nextInput = e.target.value.trim();
-              setInput(nextInput);
-            }}
+            value={nextTodo}
+            onChange={(e) => setNextTodo(e.target.value.trim())}
             placeholder="내용을 입력해주세요"
           />
         ) : (
           <div className={isCompleted ? 'line-through text-gray-500 italic' : ''}>{todo.todo}</div>
         )}
       </div>
-      <div>
-        <button
-          className={classNames(
-            'hover:bg-gray-100 p-2 rounded transition ease-in-out duration-150',
-            diabledEditButton
-              ? 'cursor-not-allowed text-gray-400'
-              : 'cursor-pointer hover:text-indigo-500 active:bg-gray-200',
-          )}
-          onClick={() => {
-            toggleEditMode();
-            if (isEditMode && !!input) {
-              modifyTodo({ id: todo.id, todo: input });
-            }
-          }}
-          disabled={diabledEditButton}
-        >
-          {isEditMode ? <Icons.Send /> : <Icons.Pencil />}
-        </button>
+      <div className="flex items-center gap-2">
+        {isEditMode ? (
+          <IconButton
+            icon={<Icons.Send />}
+            disabled={diabledEditButton}
+            onClick={onClickModifyButton}
+          />
+        ) : (
+          <IconButton icon={<Icons.Pencil />} onClick={onClickEditButton} />
+        )}
+        <IconButton icon={<Icons.Trash />} onClick={onClickRemoveButton} />
       </div>
       <div className="text-xs text-gray-500 text-right flex flex-col gap-1">
         <div>Updated At</div>
