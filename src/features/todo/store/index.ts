@@ -1,2 +1,2 @@
+export * from './persistTodoStore';
 export * from './todoStore';
-export * from './todoDateStore';

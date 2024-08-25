@@ -1,13 +1,7 @@
 import { useState } from 'react';
-import {
-  TodoCheckBox,
-  TodoState,
-  TTodo,
-  useCompleteTodo,
-  useModifyTodo,
-  useRemoveTodo,
-} from '@/features/todo';
+import { TodoState, TTodo, useCompleteTodo, useModifyTodo, useRemoveTodo } from '@/features/todo';
 import { IconButton, Icons } from '@/components';
+import TodoCheckBox from './TodoCheckBox';
 
 interface TProps {
   todo: TTodo;
