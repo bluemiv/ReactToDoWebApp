@@ -1,17 +1,20 @@
-import { ReactNode } from 'react';
 import { TPropsWithChildren } from '@/types';
+import { TodoCardHeader, useTodayTodoList } from '@/features/todo';
+import { Copyright } from '@/components';
 
-interface TProps {
-  header: ReactNode;
-  footer: ReactNode;
-}
+interface TProps {}
 
-export default function TodoCard({ header, footer, children }: TPropsWithChildren<TProps>) {
+export default function TodoCard({ children }: TPropsWithChildren<TProps>) {
+  const todoList = useTodayTodoList();
+  const count = todoList.length;
   return (
-    <div className="shadow-2xl rounded-3xl bg-white m-auto w-[95vw] h-[80vh] md:w-[720px] flex flex-col">
-      <div className="p-6 border-b">{header}</div>
-      <div className="flex-1 p-6">{children}</div>
-      <div className="p-6 border-t">{footer}</div>
+    <div className="shadow-2xl rounded-3xl bg-white m-auto w-[95vw] md:w-[720px] flex flex-col">
+      <TodoCardHeader />
+      <div className="p-6 max-h-[60vh] min-h-[60vh] flex flex-col gap-6">{children}</div>
+      <div className="p-6 border-t flex justify-between items-center h-[80px]">
+        <div className="text-indigo-500 text-sm">{`${count} Task${count > 1 ? 's' : ''}`}</div>
+        <Copyright />
+      </div>
     </div>
   );
 }

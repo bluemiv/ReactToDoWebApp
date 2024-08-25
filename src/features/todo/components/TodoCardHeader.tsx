@@ -10,9 +10,9 @@ export default function TodoCardHeader() {
   const onClickNextBtn = () => setCurDate(curDate.add(1, 'd'));
 
   return (
-    <div className="flex items-center gap-6">
+    <div className="flex items-center gap-6 border-b h-[80px] px-6">
       <IconButton onClick={onClickPrevBtn} icon={<Icons.ChevronLeft />} />
-      <div className="flex-1 text-indigo-500 flex gap-4 items-center justify-center">
+      <div className="h-full flex-1 text-indigo-500 flex gap-4 items-center justify-center">
         <span className="text-2xl font-bold uppercase">{curDate.format('dddd')}</span>
         <span className="text-xl">{curDate.format('MMMM DD')}th</span>
       </div>
