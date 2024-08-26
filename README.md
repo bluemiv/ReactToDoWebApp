@@ -16,3 +16,29 @@ bun dev
 bun install
 bun run build
 ```
+## Skills
+
+언어 및 프레임워크
+- React
+- TypeScript
+
+번들러 및 트랜스파일러
+- Vite
+- SWC
+
+패키지 관리자
+- Bun
+
+스타일 
+- tailwindcss
+
+전역 상태 관리
+- zustand
+
+기타 라이브러리
+- react-hook-form
+- yup
+- classnames
+- dayjs
+- prettier
+- husky
