@@ -21,8 +21,8 @@ export default function TodoItem({ todo }: TProps) {
 
   const onClickModifyButton = () => {
     setIsEditMode(false);
-    if (!nextTodo || nextTodo === todo.todo) return;
-    modifyTodo({ id: todo.id, todo: nextTodo });
+    if (!nextTodo || !nextTodo.trim() || nextTodo === todo.todo) return;
+    modifyTodo({ id: todo.id, todo: nextTodo.trim() });
   };
 
   const onClickRemoveButton = () => {
@@ -42,7 +42,7 @@ export default function TodoItem({ todo }: TProps) {
           <input
             className="w-full outline-none px-4 sm:px-6 py-2 rounded-full bg-gray-100"
             value={nextTodo}
-            onChange={(e) => setNextTodo(e.target.value.trim())}
+            onChange={(e) => setNextTodo(e.target.value)}
             placeholder="내용을 입력해주세요"
           />
         ) : (
