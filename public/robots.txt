@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blumiv-react-todo-app.vercel.app/sitemap.xml
